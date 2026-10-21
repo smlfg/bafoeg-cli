@@ -1,5 +1,7 @@
 """Tests für Fristen, Formblätter und Links."""
 
+import urllib.request
+
 from bafoeg_cli import fristen, links, unterlagen
 
 
@@ -64,6 +66,30 @@ def test_formblatt_lookup():
 
 def test_formblatt_unbekannt():
     assert unterlagen.formblatt(99) is None
+
+
+def test_formblatt_urls_haben_blob_parameter_fuer_pdf_direktdownload():
+    for fb in unterlagen.alle_formblaetter():
+        assert "__blob=publicationFile" in fb["url"], (
+            f"Formblatt {fb['nummer']}: URL ohne __blob=publicationFile"
+        )
+
+
+def test_formblatt_urls_liefern_pdf_bytes():
+    """Live-Check: bafög.de liefert mit __blob-Parameter echte PDFs."""
+    for fb in unterlagen.alle_formblaetter():
+        req = urllib.request.Request(
+            fb["url"],
+            headers={"Range": "bytes=0-4"},
+        )
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            assert resp.headers.get_content_type() == "application/pdf", (
+                f"Formblatt {fb['nummer']}: erwartet application/pdf, "
+                f"bekam {resp.headers.get_content_type()}"
+            )
+            assert resp.read(5) == b"%PDF-", (
+                f"Formblatt {fb['nummer']}: Body beginnt nicht mit %PDF-"
+            )
 
 
 def test_situationen_vorhanden():
