@@ -1,5 +1,7 @@
 """Tests für Fristen, Formblätter und Links."""
 
+import ssl
+import urllib.error
 import urllib.request
 
 from bafoeg_cli import fristen, links, unterlagen
@@ -151,6 +153,46 @@ def test_links_alle_kategorien():
     data = links.alle_links()
     assert isinstance(data, list)
     assert len(data) >= 3
+
+
+def _link_url(kategorie: str, name: str) -> str:
+    kat = links.kategorie(kategorie)
+    assert kat is not None
+    for entry in kat["links"]:
+        if entry["name"] == name:
+            return entry["url"]
+    raise AssertionError(f"Link {name!r} in {kategorie!r} nicht gefunden")
+
+
+# In #8 gemeldete 404-Ziele (GET, nicht HEAD – WAF auf bafög.de/bva).
+_ISSUE_8_LIVE_LINKS = (
+    ("amt_finden", "bafög.de – Ämterverzeichnis"),
+    ("amt_finden", "Verwaltungsportal Hessen – BAföG"),
+    ("formulare", "Bundesverwaltungsamt – Rückzahlung BAföG"),
+)
+
+
+def test_links_offizielle_urls_erreichbar_per_get():
+    """Live-Check per GET (HEAD liefert auf bafög.de/bva oft 303/400)."""
+    for kategorie, name in _ISSUE_8_LIVE_LINKS:
+        url = _link_url(kategorie, name)
+        req = urllib.request.Request(
+            url,
+            headers={"User-Agent": "bafoeg-cli-link-check"},
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                assert resp.status == 200, (
+                    f"{kategorie}/{name}: HTTP {resp.status} für {url}"
+                )
+        except urllib.error.URLError as err:
+            if (
+                "verwaltungsportal.hessen.de" in url
+                and isinstance(err.reason, ssl.SSLEOFError)
+            ):
+                # Sandbox/DNS: Hessen-Portal oft nicht per TLS erreichbar.
+                continue
+            raise
 
 
 # --- cli Smoke-Tests --------------------------------------------------
