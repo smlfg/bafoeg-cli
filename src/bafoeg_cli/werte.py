@@ -26,9 +26,9 @@ class Bedarfssaetze:
     wohnung_bei_eltern: float = 59.0
     kv_zuschlag: float = 102.0
     pv_zuschlag: float = 35.0
-    # §13a Abs. 3: ab 30 erhöht sich der KV/PV-Zuschlag für Studierende
-    # um insgesamt 26 € (1.018 statt 992 € Höchstsatz).
-    kv_pv_aufschlag_ab_30: float = 26.0
+    # §13a Abs. 2 i.V.m. Abs. 3 Satz 4 (Altersgrenze überschritten): gesetzliche KV/PV
+    kv_zuschlag_ab_30: float = 185.0
+    pv_zuschlag_ab_30: float = 48.0
     auslandszuschlag: float = 0.0  # §13 Abs. 3, hier nicht berechnet
 
     def max_student(self, bei_eltern: bool, eigene_kv_pv: bool, ab_30: bool) -> float:
@@ -36,9 +36,10 @@ class Bedarfssaetze:
         wohn = self.wohnung_bei_eltern if bei_eltern else self.wohnung_eigene_wohnung
         base = self.grundbedarf_student + wohn
         if eigene_kv_pv:
-            base += self.kv_zuschlag + self.pv_zuschlag
             if ab_30:
-                base += self.kv_pv_aufschlag_ab_30
+                base += self.kv_zuschlag_ab_30 + self.pv_zuschlag_ab_30
+            else:
+                base += self.kv_zuschlag + self.pv_zuschlag
         return round(base, 2)
 
 
@@ -85,10 +86,15 @@ STUDIERENDE_QUELLEN = {
     "wohnung_bei_eltern": BedarfssatzQuelle("§13 Abs. 2 Nr. 2 BAföG", "59 €"),
     "kv_zuschlag": BedarfssatzQuelle("§13a Abs. 1 BAföG", "102 €"),
     "pv_zuschlag": BedarfssatzQuelle("§13a Abs. 1 BAföG", "35 €"),
-    "kv_pv_aufschlag_ab_30": BedarfssatzQuelle(
-        "§13a Abs. 3 BAföG",
-        "+26 €",
-        "Aufschlag auf den KV/PV-Zuschlag ab 30 (Höchstsatz 1.018 €)",
+    "kv_zuschlag_ab_30": BedarfssatzQuelle(
+        "§13a Abs. 2 i.V.m. Abs. 3 Satz 4 BAföG",
+        "185 €",
+        "Gesetzliche KV statt 102 € (Abs. 1) ab Altersgrenze §5 SGB V",
+    ),
+    "pv_zuschlag_ab_30": BedarfssatzQuelle(
+        "§13a Abs. 2 i.V.m. Abs. 3 Satz 4 BAföG",
+        "48 €",
+        "Gesetzliche PV statt 35 € (Abs. 1)",
     ),
 }
 

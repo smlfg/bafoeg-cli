@@ -535,7 +535,11 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Eigene Kranken-/Pflegeversicherung (KV/PV-Zuschlag 137 €)",
     )
-    pr.add_argument("--ab-30", action="store_true", help="Ab 30 Jahre (höherer KV/PV-Zuschlag)")
+    pr.add_argument(
+        "--ab-30",
+        action="store_true",
+        help="Ab 30 Jahre (§13a Abs. 2: KV 185 €, PV 48 €; Höchstsatz eigene Wohnung 1.088 €)",
+    )
     pr.add_argument("--verheiratet", action="store_true", help="Verheiratet / Lebenspartnerschaft")
     pr.add_argument("--eltern-getrennt", action="store_true", help="Eltern getrennt lebend")
     pr.add_argument(
