@@ -1,5 +1,7 @@
 """Tests für das CLI-Ende (Exit-Codes, Fehler)."""
 
+import json
+
 import pytest
 
 from bafoeg_cli.cli import main
@@ -36,3 +38,25 @@ def test_cli_links_unbekannte_kategorie():
 def test_cli_version():
     rc = main(["--version"])
     assert rc == 0
+
+
+@pytest.mark.parametrize(
+    "argv",
+    [
+        ["rechner", "--json", "--einkommen-vater", "nan"],
+        ["rechner", "--json", "--einkommen-mutter", "1e999"],
+        ["rechner", "--json", "--vermoegen", "inf"],
+    ],
+)
+def test_cli_rechner_lehnt_nicht_endliche_betraege_ab(argv):
+    with pytest.raises(SystemExit) as exc:
+        main(argv)
+    assert exc.value.code == 2
+
+
+def test_cli_rechner_json_ist_parsebar(capsys):
+    rc = main(["rechner", "--json"])
+    assert rc == 0
+    out = capsys.readouterr().out
+    parsed = json.loads(out)
+    assert "ergebnis" in parsed
