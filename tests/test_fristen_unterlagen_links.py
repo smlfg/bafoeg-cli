@@ -33,6 +33,20 @@ def test_fristen_json_format():
         }
 
 
+def test_frist_erstantrag_text_bewilligt_ohne_wortbruch():
+    erstantrag = next(f for f in fristen.FRISTEN if f.name == "Erstantrag")
+    assert "bew illigt" not in erstantrag.frist
+    assert "bewilligt" in erstantrag.frist
+
+
+def test_situation_folgeantrag_student_erster_beleg_lesbar():
+    sit = unterlagen.situation("folgeantrag_student")
+    assert sit is not None
+    erster_beleg = sit["belege"][0]
+    assert "Folgeantebensoekonigungsbescheinigung" not in erster_beleg
+    assert "Hochschule" in erster_beleg
+
+
 # --- unterlagen -------------------------------------------------------
 
 
