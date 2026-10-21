@@ -10,47 +10,47 @@ QUELLE_UNTERLAGEN = (
 FORMBLAETTER = {
     1: {
         "name": "Antrag auf Ausbildungsförderung",
-        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_1.pdf",
+        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_1.pdf?__blob=publicationFile",
         "wer": "Antragsteller/in",
     },
     2: {
         "name": "Bescheinigung nach §9 BAföG (Ausbildungsstätte)",
-        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_2.pdf",
+        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_2.pdf?__blob=publicationFile",
         "wer": "Ausbildungsstätte (Hochschule/Schule)",
     },
     3: {
         "name": "Einkommenserklärung (Eltern / Ehegatte / Lebenspartner)",
-        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_3.pdf",
+        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_3.pdf?__blob=publicationFile",
         "wer": "Vater, Mutter, ggf. Ehegatte/Lebenspartner (jeweils eigene Erklärung)",
     },
     4: {
         "name": "Kinder der auszubildenden Person",
-        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_4.pdf",
+        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_4.pdf?__blob=publicationFile",
         "wer": "Antragsteller/in (bei Kindern unter 14 Jahren)",
     },
     5: {
         "name": "Leistungsbescheinigung nach §48 BAföG",
-        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_5.pdf",
+        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_5.pdf?__blob=publicationFile",
         "wer": "Hochschule (für Höhere Fachschule / Akademie / Hochschule ab 5. FS)",
     },
     6: {
         "name": "Ausbildung im Ausland (Zusatzblatt)",
-        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_6.pdf",
+        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_6.pdf?__blob=publicationFile",
         "wer": "Antragsteller/in bei Auslandsaufenthalten",
     },
     7: {
         "name": "Aktualisierung des Einkommens",
-        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_7.pdf",
+        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_7.pdf?__blob=publicationFile",
         "wer": "Antragsteller/in bei Einkommensänderung im laufenden Bewilligungszeitraum",
     },
     8: {
         "name": "Antrag auf Vorausleistung",
-        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_8.pdf",
+        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_8.pdf?__blob=publicationFile",
         "wer": "Antragsteller/in (Eltern zahlen keinen Unterhalt)",
     },
     9: {
         "name": "Folgeantrag auf Ausbildungsförderung (nur Studierende)",
-        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_9.pdf",
+        "url": "https://www.xn--bafg-7qa.de/bafoeg/shareddocs/downloads/formblaetter/v2025/formblatt_9.pdf?__blob=publicationFile",
         "wer": "Studierende (für Folgeantrag beim gleichen Amt)",
     },
 }
