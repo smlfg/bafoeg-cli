@@ -200,12 +200,22 @@ def test_foerderung_nie_negativ():
 
 
 def test_ab_30_erhoeht_hoechstsatz():
-    """Student ab 30: Bedarf = 1.018 €."""
+    """Student ab 30, eigene KV: Bedarf = 1.088 € (§13a Abs. 2 i.V.m. Abs. 3 Satz 4)."""
     inp = RechnerInput(
         bei_eltern=False,
         eigene_krankenversicherung=True,
         ab_30=True,
     )
     erg = berechne(inp)
-    assert erg.bedarf_monat == 1018.0
-    assert erg.foerderung_monat == 1018.0
+    assert erg.bedarf_monat == 1088.0
+    assert erg.foerderung_monat == 1088.0
+
+
+def test_ab_30_bei_eltern_hoechstsatz():
+    inp = RechnerInput(
+        bei_eltern=True,
+        eigene_krankenversicherung=True,
+        ab_30=True,
+    )
+    erg = berechne(inp)
+    assert erg.bedarf_monat == 767.0

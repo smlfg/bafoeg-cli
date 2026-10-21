@@ -27,17 +27,23 @@ def test_bedarfssaetze_werte_ohne_kv_pv():
 
 
 def test_bedarfssaetze_werte_ab_30():
-    """Student 30+, eigene Wohnung, eigene KV/PV → 1.018 €."""
+    """Student 30+, eigene Wohnung, eigene KV/PV → 1.088 € (§13a Abs. 2)."""
     b = get_bedarfssaetze()
-    assert b.max_student(bei_eltern=False, eigene_kv_pv=True, ab_30=True) == 1018.0
+    assert b.max_student(bei_eltern=False, eigene_kv_pv=True, ab_30=True) == 1088.0
+
+
+def test_bedarfssaetze_werte_ab_30_bei_eltern():
+    """Student 30+, bei Eltern, eigene KV/PV → 767 €."""
+    b = get_bedarfssaetze()
+    assert b.max_student(bei_eltern=True, eigene_kv_pv=True, ab_30=True) == 767.0
 
 
 def test_bedarfssaetze_aufschlag_ab_30():
-    """Aufschlag ab 30 ist +26 € (KV/PV-Erhöhung)."""
+    """Ab 30 gelten §13a Abs. 2-Sätze (185/48 €) statt Abs. 1 (102/35 €): +96 €."""
     b = get_bedarfssaetze()
     ohne = b.max_student(False, True, False)
     mit = b.max_student(False, True, True)
-    assert mit - ohne == 26.0
+    assert mit - ohne == 96.0
 
 
 def test_freibetraege_minijob_2026():
