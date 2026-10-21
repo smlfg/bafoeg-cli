@@ -60,3 +60,16 @@ def test_cli_rechner_json_ist_parsebar(capsys):
     out = capsys.readouterr().out
     parsed = json.loads(out)
     assert "ergebnis" in parsed
+
+
+@pytest.mark.parametrize(
+    "argv",
+    [
+        ["rechner", "--json", "--eigene-kinder", "-3"],
+        ["rechner", "--json", "--weitere-kinder", "-1", "--einkommen-vater", "3000"],
+    ],
+)
+def test_cli_rechner_lehnt_negative_kinderzahlen_ab(argv):
+    with pytest.raises(SystemExit) as exc:
+        main(argv)
+    assert exc.value.code == 2
