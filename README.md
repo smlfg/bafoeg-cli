@@ -315,7 +315,7 @@ JSON-Ausgabe enthält `quelle` und `stand`.
 
 - Schlüssel in snake_case
 - `quelle`, `stand`, `gueltig_ab` immer auf Top-Level
-- Beträge in Euro (Float, 2 Nachkommastellen)
+- Beträge in Euro (endliche Floats, RFC-8259-kompatibel)
 - `hinweis` und `hinweise` als Arrays
 - Keine erfundenen Personendaten (kein Login, keine Ausweisnummern)
 
