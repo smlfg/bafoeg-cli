@@ -72,6 +72,22 @@ class RechnerErgebnis:
     details: dict
 
 
+def _eltern_teil_anrechnung(
+    einkommen: float,
+    grundfrei: float,
+    zuschlag_kinder: float,
+    weitere_kinder: int,
+    frei: Freibetraege,
+) -> tuple[float, float]:
+    """Anrechnung für ein Elterneinkommen (absoluter Freibetrag, dann relativer)."""
+    absolut = max(0.0, einkommen - (grundfrei + zuschlag_kinder))
+    relativ_frei_prozent = (
+        frei.relativ_grundanteil + weitere_kinder * frei.relativ_pro_kind
+    )
+    anrechnung = absolut * (1.0 - relativ_frei_prozent)
+    return absolut, anrechnung
+
+
 def _eltern_anrechnung(
     eltern: Elterneinkommen,
     frei: Freibetraege,
@@ -82,25 +98,47 @@ def _eltern_anrechnung(
     werden nicht abgezogen). Wer das genau haben will, soll die
     zuständige BAföG-Berechnung des Amts nutzen.
     """
+    # Aufstockung für Kinder im Haushalt, die nicht in förderfähiger
+    # Ausbildung sind
+    zuschlag_kinder = eltern.weitere_kinder_im_haushalt * frei.kind_zuschlag
+    relativ_frei_prozent = (
+        frei.relativ_grundanteil
+        + eltern.weitere_kinder_im_haushalt * frei.relativ_pro_kind
+    )
+
     if eltern.verheiratet_zusammen:
         gesamt = eltern.vater + eltern.mutter
         grundfrei = frei.eltern_verheiratet
         aufteilung = "verheiratet_zusammen"
+        absolut, anrechnung = _eltern_teil_anrechnung(
+            gesamt,
+            grundfrei,
+            zuschlag_kinder,
+            eltern.weitere_kinder_im_haushalt,
+            frei,
+        )
     else:
         gesamt = eltern.vater + eltern.mutter
         grundfrei = 2 * frei.eltern_allein
         aufteilung = "getrennt"
-
-    # Aufstockung für Kinder im Haushalt, die nicht in förderfähiger
-    # Ausbildung sind
-    zuschlag_kinder = eltern.weitere_kinder_im_haushalt * frei.kind_zuschlag
-    absolut = max(0.0, gesamt - (grundfrei + zuschlag_kinder))
-
-    # Relativer Freibetrag: 50 % + 5 % je Kind
-    relativ_frei_prozent = (
-        frei.relativ_grundanteil + eltern.weitere_kinder_im_haushalt * frei.relativ_pro_kind
-    )
-    anrechnung = absolut * (1.0 - relativ_frei_prozent)
+        # Kindeszuschlag gilt einmal je Haushalt → je Elternteil anteilig
+        zuschlag_je_elternteil = zuschlag_kinder / 2
+        absolut_v, anr_v = _eltern_teil_anrechnung(
+            eltern.vater,
+            frei.eltern_allein,
+            zuschlag_je_elternteil,
+            eltern.weitere_kinder_im_haushalt,
+            frei,
+        )
+        absolut_m, anr_m = _eltern_teil_anrechnung(
+            eltern.mutter,
+            frei.eltern_allein,
+            zuschlag_je_elternteil,
+            eltern.weitere_kinder_im_haushalt,
+            frei,
+        )
+        absolut = absolut_v + absolut_m
+        anrechnung = anr_v + anr_m
 
     return round(anrechnung, 2), {
         "aufteilung": aufteilung,
