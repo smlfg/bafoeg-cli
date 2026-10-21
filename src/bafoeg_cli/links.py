@@ -5,7 +5,7 @@ from __future__ import annotations
 QUELLE_LINKS = (
     "bafög.de (offizielles Portal des BMBF), "
     "verwaltungsportal.bund.de, gesetze-im-internet.de (verifiziert "
-    "2026-10-12)"
+    "2026-10-21)"
 )
 
 KATEGORIEN = {
@@ -39,10 +39,9 @@ KATEGORIEN = {
             {
                 "name": "bafög.de – Ämterverzeichnis",
                 "url": (
-                    "https://www.xn--bafg-7qa.de/bafoeg/de/"
-                    "antrag-stellen/ihre-ausbildungsstaette/"
-                    "wo-ist-mein-antrag-zu-stellen-/wo-ist-mein-antrag-"
-                    "zu-stellen-_node.html"
+                    "https://www.xn--bafg-7qa.de/SiteGlobals/Forms/bafoeg/"
+                    "deutschlandkarte/deutschlandkarte_formular.html?"
+                    "pageNo=0&queryResultId=null"
                 ),
                 "beschreibung": (
                     "Suche nach zuständigem Amt nach Studiensitz/Wohnort; "
@@ -53,7 +52,7 @@ KATEGORIEN = {
                 "name": "Verwaltungsportal Hessen – BAföG",
                 "url": (
                     "https://verwaltungsportal.hessen.de/"
-                    "leistung?leistung_id=B100019"
+                    "leistung?leistung_id=L100001_8975186"
                 ),
                 "beschreibung": (
                     "Beispiel für länderspezifische Online-Verfahren."
@@ -122,8 +121,8 @@ KATEGORIEN = {
                 "name": "Bundesverwaltungsamt – Rückzahlung BAföG",
                 "url": (
                     "https://www.bva.bund.de/DE/Services/Buerger/"
-                    "Ausbildungsfoerderung/"
-                    "ausbildungsfoerderung_node.html"
+                    "Schule-Ausbildung-Studium/BAfoeG/"
+                    "bafoeg_node.html"
                 ),
                 "beschreibung": (
                     "Rückzahlung, Freistellung, einkommensabhängiger "
