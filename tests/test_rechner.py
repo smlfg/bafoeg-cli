@@ -95,6 +95,33 @@ def test_anrechnung_eltern_getrennt():
     assert erg.details["eltern"]["anrechnung_monat"] == 310.0
 
 
+def test_anrechnung_eltern_getrennt_asymmetrisch():
+    """Getrennt: Freibetrag je Elternteil, nicht übertragbar (§25 Abs. 1 Nr. 1).
+
+    Vater 3.000 € → (3.000 − 1.690) × 50 % = 655 €; Mutter 0 € → 0 €.
+    """
+    inp = _kv_inp(
+        eltern=Elterneinkommen(
+            vater=3000.0,
+            mutter=0.0,
+            verheiratet_zusammen=False,
+        ),
+    )
+    erg = berechne(inp)
+    assert erg.anrechnung_eltern == 655.0
+    assert erg.foerderung_monat == 337.0
+
+    inp2 = _kv_inp(
+        eltern=Elterneinkommen(
+            vater=3000.0,
+            mutter=1000.0,
+            verheiratet_zusammen=False,
+        ),
+    )
+    erg2 = berechne(inp2)
+    assert erg2.anrechnung_eltern == 655.0
+
+
 def test_anrechnung_eigenes_einkommen_unter_freibetrag():
     """Eigenes Einkommen 400 €/Mon < 603 € → keine."""
     inp = _kv_inp(
