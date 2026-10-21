@@ -32,6 +32,17 @@ def _finite_float(value: str) -> float:
     return x
 
 
+def _non_negative_int(value: str) -> int:
+    """argparse-Typ: nicht-negative Ganzzahl."""
+    try:
+        x = int(value)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError(str(exc)) from exc
+    if x < 0:
+        raise argparse.ArgumentTypeError(f"{value!r} must be >= 0")
+    return x
+
+
 def _out(data: Any, as_json: bool, pretty: bool = True) -> None:
     """Ausgabe als JSON (für Agenten) oder als lesbarer Text."""
     dumps_kw = {"ensure_ascii": False, "allow_nan": False}
@@ -541,7 +552,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     pr.add_argument(
         "--weitere-kinder",
-        type=int,
+        type=_non_negative_int,
         default=0,
         help="Weitere unterhaltsberechtigte Kinder im Haushalt",
     )
@@ -558,7 +569,10 @@ def build_parser() -> argparse.ArgumentParser:
         help="Einkommen Ehegatte/eingetr. Lebenspartner (Monat)",
     )
     pr.add_argument(
-        "--eigene-kinder", type=int, default=0, help="Eigene Kinder ohne Ausbildung"
+        "--eigene-kinder",
+        type=_non_negative_int,
+        default=0,
+        help="Eigene Kinder ohne Ausbildung",
     )
     pr.add_argument(
         "--vermoegen",
