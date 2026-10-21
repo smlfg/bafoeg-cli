@@ -22,7 +22,7 @@ FRISTEN: list[Frist] = [
     Frist(
         name="Erstantrag",
         rechtsgrundlage="§15 Abs. 1, §18 Abs. 2 BAföG",
-        frist="Antrag wird ab dem Monat des Eingangs beim Amt bew illigt; "
+        frist="Antrag wird ab dem Monat des Eingangs beim Amt bewilligt; "
         "kein rückwirkender Anspruch.",
         detail=(
             "Möglichst bald nach Erhalt der Zulassung/Ausbildungsbestätigung "

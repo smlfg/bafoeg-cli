@@ -78,7 +78,7 @@ SITUATIONEN = {
         "formblaetter": [9, 3, 4],
         "formblaetter_optional": [5],  # ab 5. FS
         "belege": [
-            "Folgeantebensoekonigungsbescheinigung der Hochschule",
+            "Bescheinigung der Hochschule zum Folgeantrag",
             "§9-Bescheinigung oder Immatrikulationsbescheinigung",
             "Nachweise zum Einkommen (Eltern aktualisiert über FB 7, "
             "wenn nötig)",
