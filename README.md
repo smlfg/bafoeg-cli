@@ -194,7 +194,7 @@ Wichtige Flags:
 --bei-eltern          # Wohnung bei den Eltern (nur 59 € Wohnpauschale)
 --eigene-kv           # eigene Kranken- und Pflegeversicherung
                       # (KV/PV-Zuschlag 137 €)
---ab-30               # ab 30 Jahre (Aufschlag 26 €, Höchstsatz 1.018 €)
+--ab-30               # ab 30 Jahre (§13a Abs. 2: KV 185 €, PV 48 €; Höchstsatz 1.088 €)
 --verheiratet         # verheiratet / eingetr. Lebenspartnerschaft
 --eltern-getrennt     # Eltern getrennt lebend (sonst 2.540 € Freibetrag)
 --einkommen-vater     # monatliches Nettoeinkommen Vater
